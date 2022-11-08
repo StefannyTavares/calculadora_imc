@@ -1,4 +1,4 @@
-# calculadora_inpc
+# calculadora_imc
 
 ## Project setup
 ```
