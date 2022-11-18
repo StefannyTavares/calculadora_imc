@@ -10,7 +10,7 @@
     "core-js": "^3.8.3",
     "v-money": "^0.8.1",
     "vue": "^2.6.14",
-    "vuetify": "^2.6.0",
+    "vuetify": "^2.6.12",
     "vuetify-money": "^1.2.0"
   },
   "devDependencies": {
