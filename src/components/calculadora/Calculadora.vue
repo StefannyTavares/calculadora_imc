@@ -26,39 +26,42 @@
                         </v-row>
                         <v-row>
                             <v-col cols="4" offset="4">
-                                <input-number
+                                <input-idade
                                     label="Idade"
                                     outlined
                                     persistent-placeholder
                                     placeholder="Ex: 25"
                                     dense
                                     hide-spin-buttons
+                                    rules
                                 />
                             </v-col>
                             <v-col class="span"><span>anos</span></v-col>
                         </v-row>
                         <v-row>
                             <v-col cols="4" offset="4">
-                                <input-number
+                                <input-altura
                                     v-model="altura"
                                     label="Altura"
                                     outlined
                                     persistent-placeholder
                                     placeholder="Ex: 160"
                                     dense
+                                    rules
                                 />
                             </v-col>
                             <v-col class="span"><span>cm</span></v-col>
                         </v-row>
                         <v-row>
                             <v-col cols="4" offset="4">
-                                <input-number
+                                <input-peso
                                     v-model="peso"
                                     label="Peso"
                                     outlined
                                     persistent-placeholder
                                     placeholder="Ex: 62.5"
                                     dense 
+                                    rules
                                 />
                             </v-col>
                             <v-col class="span"><span>kg</span></v-col>
@@ -67,6 +70,9 @@
                             <v-col cols="12 text-center">
                                 <v-btn color="primary" @click="calcular()"
                                     >Calcular</v-btn
+                                >
+                                <v-btn color="error" @click="limpar()"
+                                    >Limpar</v-btn
                                 >
                             </v-col>
                         </v-row>
@@ -116,6 +122,11 @@
                                 </tbody>
                             </template>
                         </v-simple-table>
+                        <v-col cols="12 text-center">
+                                <v-btn color="primary" :to="link"
+                                    >Voltar</v-btn
+                                >
+                            </v-col>
                     </v-col>
             </v-col>
         </v-row>
@@ -123,13 +134,18 @@
 </template>
 
 <script>
-import InputNumber from '../shared/InputNumber.vue';
+import InputAltura from '../shared/InputAltura.vue';
+import InputIdade from '../shared/InputIdade.vue';
+import InputPeso from '../shared/InputPeso.vue';
+
 export default {
     name: 'Calculadora',
     components: {
-        InputNumber,
+        InputIdade, InputAltura,
+        InputPeso,
     },
     data() {
+        InputAltura
         return {
             imc: "",
             altura: "",
@@ -161,24 +177,36 @@ export default {
                 },
             ],
             femininoSelecionado: true,
+            link: '/',
         };
     },
     methods: {
         calcular() {
-            this.imc = (this.peso / (this.altura * this.altura)) * 10000;
-            if (this.imc <= 18.5){
-                this.imc = `Seu IMC é ${this.imc.toFixed(2)} - Está abaixo do recomendado para a sua altura`
-            } else if (this.imc >= 18.6 && this.imc <= 24.9){
-                this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está ideal para a sua altura.`
-            } else if (this.imc >= 25.0 && this.imc <= 29.9){
-                this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado sobrepeso.`
-            }else if (this.imc >= 30.0 && this.imc <= 34.9){
-                this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado obesidade grau I.`
-            }else if (this.imc >= 35.0 && this.imc <= 39.9){
-                this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado obesidade grau II.`
+            if (this.peso == '' || this.altura == ''){
+                return this.imc = `Preencha os campos adequadamente!`;
             }else{
-                this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado obesidade grau III.`
+                this.imc = (this.peso / (this.altura * this.altura)) * 10000;
+                if (this.imc <= 18.5){
+                    this.imc = `Seu IMC é ${this.imc.toFixed(2)} - Está abaixo do recomendado`
+                } else if (this.imc >= 18.6 && this.imc <= 24.9){
+                    this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está ideal para a sua altura.`
+                } else if (this.imc >= 25.0 && this.imc <= 29.9){
+                    this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado sobrepeso.`
+                }else if (this.imc >= 30.0 && this.imc <= 34.9){
+                    this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado obesidade grau I.`
+                }else if (this.imc >= 35.0 && this.imc <= 39.9){
+                    this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado obesidade grau II.`
+                }else{
+                    this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado obesidade grau III.`
+                }
             }
+
+        },
+        
+        limpar(){
+            this.imc= "";
+            this.altura= "";
+            this.peso= "";
         },
 
         genderChange(genero) {

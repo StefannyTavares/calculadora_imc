@@ -1,17 +1,14 @@
 <template>
   <v-app>
-      <Calculadora/>
+      <router-view />
   </v-app>
 </template>
 
 <script>
-import Calculadora from './components/calculadora/Calculadora';
-
 export default {
   name: 'App',
 
   components: {
-    Calculadora,
   },
 
   data: () => ({
@@ -19,3 +16,9 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+*{
+  overflow: none !important;
+}
+</style>
