@@ -12,12 +12,12 @@
                     <v-card-text>
                         <v-row>
                             <v-col cols="12 text-center">
-                                <v-btn class="botaoSexoM"
+                                <v-btn @click="genderChange('F')" class="botaoSexoF" :class="[femininoSelecionado ? 'btn-select' : '']"
                                     ><v-icon>mdi-gender-female</v-icon>
                                     Mulher
                                     </v-btn
                                 >
-                                <v-btn class="botaoSexoH"
+                                <v-btn @click="genderChange('M')" class="botaoSexoM" :class="[!femininoSelecionado ? 'btn-select' : '']"
                                     >
                                     <v-icon>mdi-gender-male</v-icon>
                                     Homem</v-btn
@@ -26,7 +26,7 @@
                         </v-row>
                         <v-row>
                             <v-col cols="4" offset="4">
-                                <v-text-field
+                                <input-number
                                     label="Idade"
                                     outlined
                                     persistent-placeholder
@@ -39,7 +39,7 @@
                         </v-row>
                         <v-row>
                             <v-col cols="4" offset="4">
-                                <v-text-field
+                                <input-number
                                     v-model="altura"
                                     label="Altura"
                                     outlined
@@ -52,13 +52,13 @@
                         </v-row>
                         <v-row>
                             <v-col cols="4" offset="4">
-                                <v-text-field
+                                <input-number
                                     v-model="peso"
                                     label="Peso"
                                     outlined
                                     persistent-placeholder
                                     placeholder="Ex: 62.5"
-                                    dense
+                                    dense 
                                 />
                             </v-col>
                             <v-col class="span"><span>kg</span></v-col>
@@ -71,14 +71,14 @@
                             </v-col>
                         </v-row>
                         <v-row>
-                            <v-col cols="4" offset="4">
-                                <v-text-field
+                            <v-col cols="10" offset="1">
+                                <v-textarea
                                     v-model="imc"
                                     label="Resultado"
                                     outlined
                                     persistent-placeholder
                                     placeholder=""
-                                    dense
+                                    height="20"
                                 />
                             </v-col>
                         </v-row>
@@ -123,7 +123,12 @@
 </template>
 
 <script>
+import InputNumber from '../shared/InputNumber.vue';
 export default {
+    name: 'Calculadora',
+    components: {
+        InputNumber,
+    },
     data() {
         return {
             imc: "",
@@ -155,15 +160,31 @@ export default {
                     classificacao: 'Obesidade grau III',
                 },
             ],
+            femininoSelecionado: true,
         };
     },
     methods: {
         calcular() {
             this.imc = (this.peso / (this.altura * this.altura)) * 10000;
-            return this.imc;
+            if (this.imc <= 18.5){
+                this.imc = `Seu IMC é ${this.imc.toFixed(2)} - Está abaixo do recomendado para a sua altura`
+            } else if (this.imc >= 18.6 && this.imc <= 24.9){
+                this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está ideal para a sua altura.`
+            } else if (this.imc >= 25.0 && this.imc <= 29.9){
+                this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado sobrepeso.`
+            }else if (this.imc >= 30.0 && this.imc <= 34.9){
+                this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado obesidade grau I.`
+            }else if (this.imc >= 35.0 && this.imc <= 39.9){
+                this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado obesidade grau II.`
+            }else{
+                this.imc =`Seu IMC é ${this.imc.toFixed(2)} - Está considerado obesidade grau III.`
+            }
         },
+
+        genderChange(genero) {
+            this.femininoSelecionado = genero === 'F' 
+        }
     },
-    //imc.toFixed(2)
 };
 </script>
 
@@ -195,18 +216,21 @@ export default {
     padding: 20px 26px;
 }
 
-.botaoSexoH {
-    color: #404040;
-    transition: color .3s ease;
-    background-color: #D7F4FF;
-    border: 1px solid #40B0DC;
-}
-
 .botaoSexoM {
     color: #404040;
     transition: color .3s ease;
     background-color: #D7F4FF;
-    border: 1px solid #EF557D;
+}
+
+.botaoSexoF {
+    color: #404040;
+    transition: color .3s ease;
+    background-color: #D7F4FF;
     margin-right: 5px;
+}
+
+.btn-select {
+    background-color: #a8e2f8 !important;
+    border: 1px solid #40B0DC;
 }
 </style>
