@@ -21,7 +21,12 @@
                             adultos ou idosos. 
                         </p>
                         <v-img class="img" src="../../assets/imc.webp" alt=""/>
-                        <v-btn :to="link" class="primary">Calcular IMC</v-btn>
+                        <v-row>
+                            <v-col cols="12 text-center">
+                                <v-btn :to="link" class="primary botao">Calcular IMC</v-btn>
+                                <v-btn :to="link2" class="error">Voltar</v-btn>
+                            </v-col>
+                        </v-row>
                     </v-card-text>
             </v-col>
 
@@ -80,6 +85,7 @@
        data (){
         return{
             link: '/calculadora',
+            link2: '/login',
         }
        } 
     }
@@ -120,6 +126,10 @@
 
 .v-btn{
     margin-top: 30px;
-    margin-left: 230px;
 }
+
+.botao{
+    margin-right: 5px;
+}
+
 </style>

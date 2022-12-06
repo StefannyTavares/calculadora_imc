@@ -78,14 +78,9 @@
                         </v-row>
                         <v-row>
                             <v-col cols="10" offset="1">
-                                <v-textarea
-                                    v-model="imc"
-                                    label="Resultado"
-                                    outlined
-                                    persistent-placeholder
-                                    placeholder=""
-                                    height="20"
-                                />
+                                <p class="text-center">
+                                    {{ imc }} 
+                                </p>
                             </v-col>
                         </v-row>
                     </v-card-text>

@@ -5,14 +5,19 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-        path: '/calculadora',
-        name: 'calculadora',
-        component: () => import(/* webpackChunkName: "calculadora" */ '@/components/calculadora/Calculadora'),
+        path: '/login',
+        name: 'login',
+        component: () => import(/* webpackChunkName: "login" */ '@/components/login/Login'),
     },
     {
         path: '/',
         name: 'conteudo',
         component: () => import(/* webpackChunkName: "conteudo" */ '@/components/conteudo/Conteudo'),
+    },
+    {
+        path: '/calculadora',
+        name: 'calculadora',
+        component: () => import(/* webpackChunkName: "calculadora" */ '@/components/calculadora/Calculadora'),
     },
 ];
 
