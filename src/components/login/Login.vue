@@ -13,6 +13,7 @@
                                 dense
                                 placeholder="Admin"
                                 persistent-placeholder
+                                prepend-icon="mdi-account"
                                 :rules="[(v) => !!v || 'Campo Obrigatório', (v) => v.length >= 4]"
                             />
                         </v-col>
@@ -27,6 +28,7 @@
                                 placeholder="Admin"
                                 hint="Mínimo 6 caracters"
                                 persistent-placeholder
+                                prepend-icon="mdi-lock"
                                 :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                                 :type="show1 ? 'text' : 'password'"
                                 @click:append="show1 = !show1"
@@ -37,7 +39,7 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12 text-center">
-                            <v-btn class="primary" :to="verificarLogin()">Entrar</v-btn>
+                            <v-btn class="primary" @click="verificarLogin()">Entrar</v-btn>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -73,9 +75,9 @@ export default {
         verificarLogin(){
             debugger
             if (this.login == 'Admin' && this.senha == 'Admini'){
-                return '/'; 
+                this.$router.push('/'); 
             }else{
-                return '';
+                return alert ('Login incorreto!');
             }
         }
     }

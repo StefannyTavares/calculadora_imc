@@ -93,7 +93,7 @@
 
 <style scoped>
 *{
-    overflow: none !important;
+  overflow: hidden;
 }
 
 .tituloPrincipal {
