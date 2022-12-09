@@ -32,8 +32,8 @@
                                     persistent-placeholder
                                     placeholder="Ex: 25"
                                     dense
-                                    hide-spin-buttons
                                     rules
+                                    type="number"
                                 />
                             </v-col>
                             <v-col class="span"><span>anos</span></v-col>

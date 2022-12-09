@@ -10,6 +10,8 @@
                 :placeholder="placeholder"
                 :persistent-placeholder="persistentPlaceholder"
                 :rules="[(v) => !!v || 'Campo Obrigatório', (v) => v.length <= 3]"
+                type="number"
+                min="10"
             />
         </v-col>
     </v-row>

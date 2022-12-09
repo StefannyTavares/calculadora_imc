@@ -19,6 +19,11 @@ const routes = [
         name: 'calculadora',
         component: () => import(/* webpackChunkName: "calculadora" */ '@/components/calculadora/Calculadora'),
     },
+    {
+        path: '/usuario/novo',
+        name: 'usuario novo',
+        component: () => import(/* webpackChunkName: "usuario novo" */ '@/views/usuario/novo/main'),
+    },
 ];
 
 const router = new VueRouter({

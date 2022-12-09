@@ -69,13 +69,24 @@ export default {
             show1: false,
             login: '',
             senha: '',
+            verificacao: [
+                {id: 1, nome: 'Admin', senha: 'Admini'},
+                {id: 2, nome: 'admin', senha: 'admini'},
+                {id: 3, nome: 'admin1', senha: 'admini1'},
+                {id: 4, nome: 'admin2', senha: 'admini2'},
+                {id: 5, nome: 'admin3', senha: 'admini3'},
+            ],      
         };
     },
     methods: {
         verificarLogin(){
             debugger
-            if (this.login == 'Admin' && this.senha == 'Admini'){
-                this.$router.push('/'); 
+            let verificacaoLog = this.verificacao.filter((filtro) => filtro.nome == this.login );
+
+            if (verificacaoLog[0]){
+                if ( this.login == verificacaoLog[0].nome){
+                    this.$router.push('/'); 
+                }
             }else{
                 return alert ('Login incorreto!');
             }
