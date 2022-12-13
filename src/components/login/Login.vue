@@ -40,8 +40,14 @@
                     <v-row>
                         <v-col cols="12 text-center">
                             <v-btn class="primary" @click="verificarLogin()">Entrar</v-btn>
+                            
                         </v-col>
                     </v-row>
+                    <v-row>
+                        <v-col cols="12 text-center">
+                            <v-btn text :to="link">Novo cadastro</v-btn>
+                        </v-col>
+                     </v-row>
                     <v-row>
                         <v-col cols="12 text-center">
                             <a href="#">Esqueceu a senha?</a>
@@ -75,7 +81,8 @@ export default {
                 {id: 3, nome: 'admin1', senha: 'admini1'},
                 {id: 4, nome: 'admin2', senha: 'admini2'},
                 {id: 5, nome: 'admin3', senha: 'admini3'},
-            ],      
+            ], 
+            link:'/usuario/novo'     
         };
     },
     methods: {
@@ -85,7 +92,7 @@ export default {
 
             if (verificacaoLog[0]){
                 if ( this.login == verificacaoLog[0].nome){
-                    this.$router.push('/'); 
+                    this.$router.push('/conteudo'); 
                 }
             }else{
                 return alert ('Login incorreto!');

@@ -6,7 +6,7 @@
         <dados-usuario />
         <v-btn style="margin-top: 20px" color="primary" @click="salvar()">Salvar </v-btn>
         <v-btn style="margin-top: 20px" color="warning" @click="editar()">Editar </v-btn>
-        <v-btn style="margin-top: 20px"  color="error">Voltar</v-btn>
+        <v-btn :to="link" style="margin-top: 20px" color="error">Voltar</v-btn>
     </v-card>
 </template>
 
@@ -20,9 +20,9 @@ import DadosUsuario from './dadosUsuario.vue';
          components: { DadosPessoais, DadosUsuario, DadosContato },
         data(){
             return{
-
+                link: '/login',
             }
-        }
+        },
     }
 </script>
 

@@ -5,12 +5,12 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-        path: '/login',
+        path: '/',
         name: 'login',
         component: () => import(/* webpackChunkName: "login" */ '@/components/login/Login'),
     },
     {
-        path: '/',
+        path: '/conteudo',
         name: 'conteudo',
         component: () => import(/* webpackChunkName: "conteudo" */ '@/components/conteudo/Conteudo'),
     },

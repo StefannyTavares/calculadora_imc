@@ -172,7 +172,7 @@ export default {
                 },
             ],
             femininoSelecionado: true,
-            link: '/',
+            link: '/conteudo',
         };
     },
     methods: {

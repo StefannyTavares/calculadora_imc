@@ -104,9 +104,22 @@
                             />
                         </v-col>
 
-                        <v-col cols="7 mt-3">
+                        <v-col cols="6 mt-3">
                             <v-text-field
                                 v-model="email"
+                                label="E-mail*"
+                                :rules="regra.emailRules"
+                                required
+                                outlined
+                                dense
+                                persistent-placeholder
+                                placeholder="usuario@usuario.com"
+                            />
+                        </v-col>
+
+                        <v-col cols="6 pl-6">
+                            <v-text-field
+                                v-model="email2"
                                 label="E-mail*"
                                 :rules="regra.emailRules"
                                 required
@@ -131,6 +144,7 @@ export default {
         return {
             logradouro: '',
             email: '',
+            email2: '',
             telefone: '',
             cep: '',
             bairro: '',

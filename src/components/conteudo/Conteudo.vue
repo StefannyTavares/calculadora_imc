@@ -85,7 +85,7 @@
        data (){
         return{
             link: '/calculadora',
-            link2: '/login',
+            link2: '/',
         }
        } 
     }
