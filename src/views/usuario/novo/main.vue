@@ -14,6 +14,7 @@
 import DadosContato from './dadosContato.vue';
 import DadosPessoais from './dadosPessoais.vue';
 import DadosUsuario from './dadosUsuario.vue';
+import {mapActions} from 'vuex';
 
     export default {
         name: 'CadastroUsuario',
@@ -23,6 +24,19 @@ import DadosUsuario from './dadosUsuario.vue';
                 link: '/login',
             }
         },
+
+        methods: {
+            ...mapActions('usuario', ['salvarUsuario']),
+
+            async salvar(){
+                await this.salvarUsuario();
+                this.$swal({
+                    icon: 'sucess',
+                    title: 'Cadastro de usuário',
+                    text: 'Cadastro realizado com sucesso!',
+                })
+            }
+        }
     }
 </script>
 

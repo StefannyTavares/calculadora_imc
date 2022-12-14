@@ -1,5 +1,3 @@
-//import axios from 'axios';
-
 import axios from "axios";
 
 let state = () => ({
@@ -11,6 +9,7 @@ let state = () => ({
         rg: '', 
         ufEmissor: '',
     },
+
     dadosContato: {
         logradouro: '',
         numero: '', 
@@ -23,11 +22,46 @@ let state = () => ({
         email: '',
         email2: '',
     },
+
     dadosUsuario: {
         usuario: '',
         senha: '',
+    },
+
+    api: {
+        estados: [],
+        cidades: [],
     }
+
 });
+
+const getters = {
+    dadosPessoais: (state) => {
+        return state.dadosPessoais;
+    },
+
+    dadosContato: (state) => {
+        return state.dadosContato;
+    },
+
+    dadosUsuario: (state) => {
+        return state.dadosUsuario;
+    },
+
+    listaUfs: (state) => {
+        return state.api.estados.map((estado) => ({
+            id: estado.id,
+            uf: estado.uf,
+        }))
+    },
+
+    listaCidades: (state) => {
+        return state.api.cidades.map((cidade) => ({
+            id: cidade.id,
+            nome: cidade.nome,
+        }))
+    },
+};
 
 const actions = {
     
@@ -68,9 +102,16 @@ const actions = {
             usuario: {
                 usuario: state.dadosUsuario.usuario,
                 senha: state.dadosUsuario.senha,
-            }
-        }
+            },
+        };
+        return await axios.post('http://localhost:8000/api/usuario', payload);
     }
-
-
 }
+
+
+export default {
+    namespaced: true,
+    state,
+    getters,
+    actions,
+};

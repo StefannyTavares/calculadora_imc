@@ -7,7 +7,7 @@
                     <v-row>
                         <v-col cols="5 mt-3 pl-6">
                             <v-text-field
-                                v-model="logradouro"
+                                v-model="dadosContato.logradouro"
                                 label="Logradouro"
                                 outlined
                                 dense
@@ -18,7 +18,7 @@
                         </v-col>
                         <v-col cols="2 mt-3">
                             <v-text-field
-                                v-model="numero"
+                                v-model="dadosContato.numero"
                                 label="Número"
                                 outlined
                                 dense
@@ -29,7 +29,7 @@
                         </v-col>
                         <v-col cols="5 mt-3 pr-6">
                             <v-text-field
-                                v-model="complemento"
+                                v-model="dadosContato.complemento"
                                 label="Complemento"
                                 outlined
                                 dense
@@ -39,7 +39,7 @@
                         </v-col>
                         <v-col cols="4 pl-6">
                             <v-text-field
-                                v-model="bairro"
+                                v-model="dadosContato.bairro"
                                 label="Bairro"
                                 outlined
                                 dense
@@ -51,7 +51,7 @@
 
                         <v-col cols="2">
                             <v-text-field
-                                v-model="cep"
+                                v-model="dadosContato.cep"
                                 label="CEP"
                                 outlined
                                 dense
@@ -62,7 +62,7 @@
 
                         <v-col cols="2">
                             <v-select
-                                v-model="uf"
+                                v-model="dadosContato.uf"
                                 label="UF"
                                 outlined
                                 dense
@@ -74,7 +74,7 @@
 
                         <v-col cols="4 pr-6">
                             <v-select
-                                v-model="cidade"
+                                v-model="dadosContato.cidade"
                                 label="Cidade"
                                 outlined
                                 dense
@@ -95,7 +95,7 @@
                     <v-row>
                         <v-col cols="4 mt-3 pl-6">
                             <v-text-field
-                                v-model="telefone"
+                                v-model="dadosContato.telefone"
                                 label="Telefone"
                                 outlined
                                 dense
@@ -106,7 +106,7 @@
 
                         <v-col cols="6 mt-3">
                             <v-text-field
-                                v-model="email"
+                                v-model="dadosContato.email"
                                 label="E-mail*"
                                 :rules="regra.emailRules"
                                 required
@@ -119,7 +119,7 @@
 
                         <v-col cols="6 pl-6">
                             <v-text-field
-                                v-model="email2"
+                                v-model="dadosContato.email2"
                                 label="E-mail*"
                                 :rules="regra.emailRules"
                                 required
@@ -137,21 +137,16 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
     name: "DadosContato",
 
+    computed: {
+        ...mapGetters('usuario', ['dadosContato', 'listaUfs', 'listaCidades']),
+    },
+
     data() {
         return {
-            logradouro: '',
-            email: '',
-            email2: '',
-            telefone: '',
-            cep: '',
-            bairro: '',
-            numero: '',
-            complemento: '',
-            uf: '',
-            cidade: '',
             regra: {
                 endereco: [
                     (v) => !!v || "Campo Obrigatório",
@@ -176,6 +171,10 @@ export default {
             },
         };
     },
+
+    methods: {
+        ...mapActions('usuario', ['fetchCidades']),
+    }
 };
 </script>
 
