@@ -1,12 +1,11 @@
 <template>
     <v-card color= "#c7c8cc">
-        <v-toolbar color='#A98A76'>Novo Cadastro</v-toolbar>
+        <v-toolbar color='#A98A76' class="cabecalho">CADASTRO</v-toolbar>
         <dados-pessoais />
         <dados-contato />
         <dados-usuario />
-        <v-btn style="margin-top: 20px" color="primary" @click="salvar()">Salvar </v-btn>
-        <v-btn style="margin-top: 20px" color="warning" @click="editar()">Editar </v-btn>
-        <v-btn :to="link" style="margin-top: 20px" color="error">Voltar</v-btn>
+        <v-btn style="margin-top: 20px" class="botao" color="primary" @click="salvar()">Salvar </v-btn>
+        <v-btn :to="link" style="margin-top: 20px" class="botao2" color="error">Voltar</v-btn>
     </v-card>
 </template>
 
@@ -14,7 +13,7 @@
 import DadosContato from './dadosContato.vue';
 import DadosPessoais from './dadosPessoais.vue';
 import DadosUsuario from './dadosUsuario.vue';
-import {mapActions} from 'vuex';
+import {mapActions, mapMutations} from 'vuex';
 
     export default {
         name: 'CadastroUsuario',
@@ -26,20 +25,45 @@ import {mapActions} from 'vuex';
         },
 
         methods: {
-            ...mapActions('usuario', ['salvarUsuario']),
+            ...mapActions('usuario', ['salvarUsuario', 'fetchUfs']),
+            ...mapMutations('usuario', ['reset']),
 
             async salvar(){
                 await this.salvarUsuario();
                 this.$swal({
-                    icon: 'sucess',
-                    title: 'Cadastro de usuário',
+                    icon: 'success',
                     text: 'Cadastro realizado com sucesso!',
-                })
+                    timer: 1500,
+                }).then(() => {
+                    this.$router.push('/');
+                    this.reset();
+                }); 
             }
+        },
+
+        mounted(){
+            this.fetchUfs();
         }
     }
 </script>
 
 <style scoped>
+.cabecalho{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.9rem;
+    text-justify: auto;
+    text-align: center;
+    font-weight: bolder;
+    color: rgba(0, 0, 0, 0.792);
+    padding: 0px 550px;
+    text-shadow: 0.1em 0.1em 0.6em rgba(0, 0, 0, 0.63)
+}
 
+.botao {
+    margin: 10px 20px 10px 550px;
+}
+
+.botao2 {
+    margin: 10px 10px;
+}
 </style>

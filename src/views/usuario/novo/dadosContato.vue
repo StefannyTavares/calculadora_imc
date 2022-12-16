@@ -5,7 +5,7 @@
                 <v-card elevation="12">
                     <v-toolbar> Endereço </v-toolbar>
                     <v-row>
-                        <v-col cols="5 mt-3 pl-6">
+                        <v-col cols="4 mt-5 pl-15">
                             <v-text-field
                                 v-model="dadosContato.logradouro"
                                 label="Logradouro"
@@ -16,7 +16,7 @@
                                 :rules="regra.endereco"
                             />
                         </v-col>
-                        <v-col cols="2 mt-3">
+                        <v-col cols="2 mt-5">
                             <v-text-field
                                 v-model="dadosContato.numero"
                                 label="Número"
@@ -27,7 +27,7 @@
                                 :rules="regra.number"
                             />
                         </v-col>
-                        <v-col cols="5 mt-3 pr-6">
+                        <v-col cols="5 mt-5 pr-6">
                             <v-text-field
                                 v-model="dadosContato.complemento"
                                 label="Complemento"
@@ -37,7 +37,7 @@
                                 :rules="regra.complement"
                             />
                         </v-col>
-                        <v-col cols="4 pl-6">
+                        <v-col cols="3 pl-15">
                             <v-text-field
                                 v-model="dadosContato.bairro"
                                 label="Bairro"
@@ -56,19 +56,25 @@
                                 outlined
                                 dense
                                 persistent-placeholder
-                                placeholder="16400-001"
+                                placeholder="00000-000"
+                                v-mask="'#####-###'"
+                                :rules="regra.estate"
                             />
                         </v-col>
 
                         <v-col cols="2">
                             <v-select
                                 v-model="dadosContato.uf"
-                                label="UF"
+                                label="UF*"
                                 outlined
                                 dense
                                 persistent-placeholder
-                                placeholder="CE"
+                                placeholder=""
                                 :rules="regra.estate"
+                                :items="listaUfs"
+                                return-object
+                                item-value="id"
+                                item-text="uf"
                             />
                         </v-col>
 
@@ -79,8 +85,12 @@
                                 outlined
                                 dense
                                 persistent-placeholder
-                                placeholder="Baixio"
+                                placeholder=""
                                 :rules="regra.city"
+                                :items="listaCidades"
+                                return-object
+                                item-value="nome"
+                                item-text="nome"
                             />
                         </v-col>
                     </v-row>
@@ -93,18 +103,20 @@
                 <v-card elevation="12">
                     <v-toolbar> Contato </v-toolbar>
                     <v-row>
-                        <v-col cols="4 mt-3 pl-6">
+                        <v-col cols="3 mt-5 pl-15">
                             <v-text-field
                                 v-model="dadosContato.telefone"
                                 label="Telefone"
                                 outlined
                                 dense
                                 persistent-placeholder
-                                placeholder="(051) 7664-6841"
+                                placeholder="(000) 00000-0000"
+                                v-mask="'(###)#####-####'"
+                                :rules="regra.estate"
                             />
                         </v-col>
 
-                        <v-col cols="6 mt-3">
+                        <v-col cols="4 mt-5">
                             <v-text-field
                                 v-model="dadosContato.email"
                                 label="E-mail*"
@@ -117,7 +129,7 @@
                             />
                         </v-col>
 
-                        <v-col cols="6 pl-6">
+                        <v-col cols="4 mt-5 pl-15">
                             <v-text-field
                                 v-model="dadosContato.email2"
                                 label="E-mail*"
@@ -167,14 +179,19 @@ export default {
                     (v) => !!v || "Campo obrigatório",
                     (v) => /.+@.+/.test(v) || "E-mail inválido",
                 ],
-                disabled: true,
             },
         };
     },
 
     methods: {
         ...mapActions('usuario', ['fetchCidades']),
-    }
+    },
+
+    watch: {
+        async 'dadosContato.uf'() {
+            await this.fetchCidades(this.dadosContato.uf.id);
+        },
+    },
 };
 </script>
 

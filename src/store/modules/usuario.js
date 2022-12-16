@@ -1,4 +1,5 @@
 import axios from "axios";
+import { onMounted } from "vue";
 
 let state = () => ({
     dadosPessoais: {
@@ -61,16 +62,46 @@ const getters = {
             nome: cidade.nome,
         }))
     },
+    
+    loading: (state) => {
+        return state.overlay;
+    },
 };
+
+const mutations = {
+    reset(state) {
+        state.dadosPessoais.nome = '';
+        state.dadosPessoais.dataNascimento = '';
+        state.dadosPessoais.genero = '';
+        state.dadosPessoais.cpf = '';
+        state.dadosPessoais.rg = '';
+        state.dadosPessoais.ufEmissor = '';
+
+        state.dadosContato.logradouro = '';
+        state.dadosContato.numero = '';
+        state.dadosContato.complemento = '';
+        state.dadosContato.bairro = '';
+        state.dadosContato.cep = '';
+        state.dadosContato.uf = '';
+        state.dadosContato.cidade = '';
+        state.dadosContato.telefone = '';
+        state.dadosContato.email = '';
+        state.dadosContato.email2 = '';
+
+        state.dadosUsuario.usuario = '';
+        state.dadosUsuario.senha = '';
+        state.dadosUsuario.confirmacaoSenha = '';
+    },
+}
 
 const actions = {
     
-    async listaUf ({state}) {
+    async fetchUfs({state}) {
         let resp = await axios.get('http://localhost:8000/api/estado');
-        state.api.estados = resp.data.estados;
+         return state.api.estados = resp.data.estados;
     },
 
-    async listaCidades({state}){
+    async fetchCidades({state}, city= 4){
         let resp = await axios.get(`http://localhost:8000/api/${city}/cidades`)
         state.api.cidades = resp.data.cidades;
     },
@@ -108,10 +139,10 @@ const actions = {
     }
 }
 
-
 export default {
     namespaced: true,
     state,
     getters,
+    mutations,
     actions,
 };

@@ -5,9 +5,9 @@
                 <v-card elevation="12">
                     <v-toolbar> Cadastro Pessoais </v-toolbar>
                     <v-row>
-                        <v-col cols="11 mt-3 pl-6">
+                        <v-col cols="11 mt-5 pl-15">
                             <v-text-field
-                                v-model="nome"
+                                v-model="dadosPessoais.nome"
                                 label="Nome*"
                                 required
                                 outlined
@@ -17,7 +17,7 @@
                                 :rules="nomePessoa"
                             />
                         </v-col>
-                        <v-col cols="6 pl-6">
+                        <v-col cols="6 pl-15">
                             <v-menu
                                 ref="menu1"
                                 v-model="menu1"
@@ -53,7 +53,7 @@
 
                         <v-col cols="5">
                             <v-select
-                                v-model="genero"
+                                v-model="dadosPessoais.genero"
                                 :items="itemsGenero"
                                 :rules="[(v) => !!v || 'Campo obrigatório']"
                                 label="Gênero"
@@ -63,9 +63,9 @@
                             />
                         </v-col>
 
-                        <v-col cols="5 pl-6">
+                        <v-col cols="5 pl-15">
                             <v-text-field
-                                v-model="cpf"
+                                v-model="dadosPessoais.cpf"
                                 label="CPF (apenas digitos)*"
                                 :rules="itemsCpf"
                                 dense
@@ -73,12 +73,13 @@
                                 counter="14"
                                 persistent-placeholder
                                 placeholder="000.000.000-00"
+                                v-mask="'###.###.###-##'"
                             />
                         </v-col>
 
                         <v-col cols="4">
                             <v-text-field
-                                v-model="rg"
+                                v-model="dadosPessoais.rg"
                                 :rules="itemsRg"
                                 :counter="7"
                                 label="RG (apenas digitos)*"
@@ -91,12 +92,16 @@
 
                         <v-col cols="2">
                             <v-select
-                                v-model="ufEmissor"
-                                :rules="[(v) => !!v || 'Campo obrigatório']"
+                                v-model="dadosPessoais.ufEmissor"
+                                :rules="regraUf"
                                 label="UF*"
                                 outlined
                                 dense
                                 persistent-placeholder
+                                :items="listaUfs"
+                                return-object
+                                item-value="id"
+                                item-text="uf"
                             />
                         </v-col>
                     </v-row>
@@ -107,35 +112,31 @@
 </template>
 
 <script>
+import {mapGetters } from 'vuex';
 export default {
     data() {
         return {
             date: '',
             dateFormatted: '',
             menu1: false,
-            nome: "",
-            cpf: "",
-            ufEmissor: "",
-            rg: "",
-            genero: "",
-            dataNascimento: "",
             nomePessoa: [
-                (v) => !!v || "O campo é obrigatório",
+                (v) => !!v || "Campo é obrigatório",
                 (v) => v.length <= 100 || "Digite o seu nome completo",
             ],
             itemsRg: [
-                (v) => !!v || "O campo é obrigatório",
+                (v) => !!v || "Campo é obrigatório",
                 (v) => v.length <= 7 || "Digite apenas 7 dígitos",
             ],
             itemsCpf: [
-                (v) => !!v || "O campo é obrigatório",
-                (v) => v.length <= 11 || "Digite apenas 7 dígitos",
+                (v) => !!v || "Campo é obrigatório",
+                (v) => v.length <= 14 || "Digite apenas 14 dígitos",
             ],
             itemsGenero: ["Masculino", "Feminino", "Outros"],
             itemsDataNasc: [                
-                (v) => !!v || "O campo é obrigatório",
-                (v) => v.length <= 7 || "Digite apenas 7 dígitos",
+                (v) => !!v || "Campo é obrigatório",
+                (v) => v.length <= 10 || "Mínimo 10 dígitos",
             ],
+            regraUf: [(v) => !!v || "Campo Obrigatório"],
         };
     },
 
@@ -143,6 +144,7 @@ export default {
       computedDateFormatted () {
         return this.formatDate(this.date)
       },
+    ...mapGetters('usuario', ['dadosPessoais', 'listaUfs']),
     },
 
     watch: {
