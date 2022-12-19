@@ -1,5 +1,4 @@
 import axios from "axios";
-import { onMounted } from "vue";
 
 let state = () => ({
     dadosPessoais: {
@@ -32,7 +31,9 @@ let state = () => ({
     api: {
         estados: [],
         cidades: [],
-    }
+    },
+
+    overlay: false,
 
 });
 
@@ -91,6 +92,14 @@ const mutations = {
         state.dadosUsuario.usuario = '';
         state.dadosUsuario.senha = '';
         state.dadosUsuario.confirmacaoSenha = '';
+    },
+
+    mostraOverlay(state){
+        state.overlay = true;
+    },
+
+    paraOverlay(state){
+        state.overlay = false;
     },
 }
 

@@ -6,6 +6,9 @@
         <dados-usuario />
         <v-btn style="margin-top: 20px" class="botao" color="primary" @click="salvar()">Salvar </v-btn>
         <v-btn :to="link" style="margin-top: 20px" class="botao2" color="error">Voltar</v-btn>
+        <v-overlay :value="loading">
+            <v-progress-circular indeterminate size="64" />
+        </v-overlay>
     </v-card>
 </template>
 
@@ -13,11 +16,11 @@
 import DadosContato from './dadosContato.vue';
 import DadosPessoais from './dadosPessoais.vue';
 import DadosUsuario from './dadosUsuario.vue';
-import {mapActions, mapMutations} from 'vuex';
+import {mapActions, mapMutations, mapGetters} from 'vuex';
 
     export default {
         name: 'CadastroUsuario',
-         components: { DadosPessoais, DadosUsuario, DadosContato },
+        components: { DadosPessoais, DadosUsuario, DadosContato },
         data(){
             return{
                 link: '/login',
@@ -26,10 +29,12 @@ import {mapActions, mapMutations} from 'vuex';
 
         methods: {
             ...mapActions('usuario', ['salvarUsuario', 'fetchUfs']),
-            ...mapMutations('usuario', ['reset']),
+            ...mapMutations('usuario', ['reset', 'mostraOverlay', 'paraOverlay']),
 
             async salvar(){
+                this.mostraOverlay();
                 await this.salvarUsuario();
+                this.paraOverlay();
                 this.$swal({
                     icon: 'success',
                     text: 'Cadastro realizado com sucesso!',
@@ -38,7 +43,11 @@ import {mapActions, mapMutations} from 'vuex';
                     this.$router.push('/');
                     this.reset();
                 }); 
-            }
+            },
+        },
+
+        computed: {
+            ...mapGetters('usuario', ['loading']),
         },
 
         mounted(){
