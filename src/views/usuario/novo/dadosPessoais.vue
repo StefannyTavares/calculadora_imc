@@ -43,7 +43,7 @@
                                     ></v-text-field>
                                 </template>
                                 <v-date-picker
-                                    v-model="date"
+                                    v-model="dadosPessoais.nascimento"
                                     no-title
                                     @input="menu1 = false"
                                     locale="pt-br"

@@ -69,35 +69,48 @@
 
 
 <script>
+import axios from "axios";  
 export default {
     data() {
         return {
             show1: false,
             login: '',
             senha: '',
-            verificacao: [
-                {id: 1, nome: 'Admin', senha: 'Admini'},
-                {id: 2, nome: 'admin', senha: 'admini'},
-                {id: 3, nome: 'admin1', senha: 'admini1'},
-                {id: 4, nome: 'admin2', senha: 'admini2'},
-                {id: 5, nome: 'admin3', senha: 'admini3'},
-            ], 
-            link:'/usuario/novo'     
+            //verificacao: [
+                //{id: 1, nome: 'Admin', senha: 'Admini'},
+                //{id: 2, nome: 'admin', senha: 'admini'},
+                //{id: 3, nome: 'admin1', senha: 'admini1'},
+                //{id: 4, nome: 'admin2', senha: 'admini2'},
+                //{id: 5, nome: 'admin3', senha: 'admini3'},
+            //], 
+            link:'/usuario/novo',
+            pessoa: [],    
         };
     },
     methods: {
-        verificarLogin(){
+        async verificarLogin(){
             debugger
-            let verificacaoLog = this.verificacao.filter((filtro) => filtro.nome == this.login );
+            let verificacaoLog = this.pessoa.filter((filtro) => filtro.email == this.login );
 
             if (verificacaoLog[0]){
-                if ( this.login == verificacaoLog[0].nome){
+                if (this.login == verificacaoLog[0].email && this.senha == verificacaoLog[0].senha){
                     this.$router.push('/conteudo'); 
+                }else{
+                    return alert ('Login incorreto!');
                 }
             }else{
                 return alert ('Login incorreto!');
             }
-        }
+        },
+
+        async buscaPessoa(){
+            let resposta = await axios.get(`http://localhost:8000/api/usuario`)
+            this.pessoa = resposta.data.usuarios;
+        },
+    },
+
+    async mounted() {
+        await this.buscaPessoa()
     }
 };
 </script>
