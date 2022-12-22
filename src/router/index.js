@@ -24,6 +24,16 @@ const routes = [
         name: 'usuario novo',
         component: () => import(/* webpackChunkName: "usuario novo" */ '@/views/usuario/novo/main'),
     },
+    {
+        path: '/usuario/editar',
+        name: 'usuario editar',
+        component: () => import(/* webpackChunkName: "usuario editar" */ '@/views/usuario/novo/indexPage'),
+    },
+    {
+        path: '/usuario/edit/:id',
+        name: 'usuario editado',
+        component: () => import(/* webpackChunkName: "usuario editado" */ '@/views/usuario/novo/main'),
+    },
 ];
 
 const router = new VueRouter({

@@ -40,7 +40,7 @@
                     <v-row>
                         <v-col cols="12 text-center">
                             <v-btn class="primary" @click="verificarLogin()">Entrar</v-btn>
-                            
+                            <v-btn class="warning" :to="link2">Editar</v-btn>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -84,6 +84,7 @@ export default {
                 //{id: 5, nome: 'admin3', senha: 'admini3'},
             //], 
             link:'/usuario/novo',
+            link2:'/usuario/editar',
             pessoa: [],    
         };
     },
