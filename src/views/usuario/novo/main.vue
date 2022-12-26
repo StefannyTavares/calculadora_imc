@@ -38,7 +38,7 @@ import axios from 'axios';
         },
 
         methods: {
-            ...mapActions('usuario', ['salvarUsuario', 'editarUsuario']),
+            ...mapActions('usuario', ['salvarUsuario', 'editarUsuario', 'fetchUfs']),
             ...mapMutations('usuario', ['mostraOverlay', 'paraOverlay', 'reset', 'editarDados']),
 
             async salvar() {
@@ -76,7 +76,8 @@ import axios from 'axios';
         async mounted() {
             if (this.idCadastro){
                 await this.buscaPessoa();
-            }
+            };
+            this.fetchUfs()
         },
 
         beforeDestroy(){

@@ -130,7 +130,7 @@ const actions = {
     
     async fetchUfs({state}) {
         let resp = await axios.get('http://localhost:8000/api/estado');
-         return state.api.estados = resp.data.estados;
+        return state.api.estados = resp.data.estados;
     },
 
     async fetchCidades({state}, city= 4){
@@ -200,6 +200,13 @@ const actions = {
         };
         return await axios.put(`http://localhost:8000/api/usuario/${id}`, payload);
     },
+};
+
+function getItemByUf(ufStr, state) {
+    const estados = state.api.estados
+    return estados
+            .filter((item) => item.uf === ufStr)
+            .map((item) => ({ id: item.id, uf: item.uf }))[0]
 }
 
 export default {
