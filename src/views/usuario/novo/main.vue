@@ -7,6 +7,9 @@
         <v-btn v-if="!isEdit" style="margin-top: 20px" class="botao" elevation="2" color="primary" @click="salvar()">Salvar </v-btn>
         <v-btn v-else style="margin-top: 20px" class="botao" elevation="2" color="warning" @click="editar()">Editar </v-btn>
         <v-btn :to="link" style="margin-top: 20px" class="botao2" color="error">Voltar</v-btn>
+        <v-overlay :value="loading">
+            <v-progress-circular indeterminate size="64" />
+        </v-overlay>
     </v-card>
 </template>
 
@@ -27,7 +30,7 @@ import axios from 'axios';
         },
 
         computed: {
-            ...mapGetters('usuario', ['dadosPessoais']),
+            ...mapGetters('usuario', ['dadosPessoais', 'loading']),
             idCadastro() {
                 return parseInt(this.$route.params.id);
             },
@@ -42,6 +45,7 @@ import axios from 'axios';
             ...mapMutations('usuario', ['mostraOverlay', 'paraOverlay', 'reset', 'editarDados']),
 
             async salvar() {
+                debugger
                 this.mostraOverlay();
                 await this.salvarUsuario();
                 this.paraOverlay();
@@ -49,6 +53,7 @@ import axios from 'axios';
                     icon: 'success',
                     title: 'Cadastro de usuário',
                     text: 'Cadastro realizado com sucesso!',
+                    timer: 1500,
                 }).then(() => {
                     this.reset();
                 });  
@@ -61,6 +66,7 @@ import axios from 'axios';
                     icon: 'success',
                     title: 'Cadastro de usuário',
                     text: 'Cadastro editado com sucesso!',
+                    timer: 1500,
                 }).then(() => {
                     this.reset();
                 }); 
