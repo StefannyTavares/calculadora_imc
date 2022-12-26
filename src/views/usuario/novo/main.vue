@@ -22,7 +22,7 @@ import axios from 'axios';
         components: { DadosPessoais, DadosUsuario, DadosContato },
         data(){
             return{
-                link: '/login',
+                link: '/',
             }
         },
 
@@ -50,9 +50,9 @@ import axios from 'axios';
                     title: 'Cadastro de usuário',
                     text: 'Cadastro realizado com sucesso!',
                 }).then(() => {
-                    this.$router.push('/usuario');
                     this.reset();
                 });  
+                    this.$router.push('/');
             },
 
             async editar() {
@@ -63,8 +63,8 @@ import axios from 'axios';
                     text: 'Cadastro editado com sucesso!',
                 }).then(() => {
                     this.reset();
-                    this.$router.push('/usuario');
                 }); 
+                    this.$router.push('/');
             },
 
             async buscaPessoa() {

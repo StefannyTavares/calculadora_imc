@@ -142,7 +142,7 @@ const actions = {
         const payload = {
             pessoa: {
                 nome: state.dadosPessoais.nome,
-                dataNascimento: state.dadosPessoais.dataNascimento,
+                dataNascimento: state.dadosPessoais.nascimento,
                 genero: state.dadosPessoais.genero,
                 cpf: state.dadosPessoais.cpf,
                 rg: state.dadosPessoais.rg,
