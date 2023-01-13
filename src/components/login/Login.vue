@@ -90,7 +90,6 @@ export default {
     },
     methods: {
         async verificarLogin(){
-            debugger
             let verificacaoLog = this.pessoa.filter((filtro) => filtro.email == this.login );
 
             if (verificacaoLog[0]){

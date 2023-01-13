@@ -189,7 +189,6 @@ export default {
 
     watch: {
         async 'dadosContato.uf'() {
-            debugger
             await this.fetchCidades(this.dadosContato.uf.id);
         },
     },

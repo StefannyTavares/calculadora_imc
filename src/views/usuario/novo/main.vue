@@ -45,7 +45,6 @@ import axios from 'axios';
             ...mapMutations('usuario', ['mostraOverlay', 'paraOverlay', 'reset', 'editarDados']),
 
             async salvar() {
-                debugger
                 this.mostraOverlay();
                 await this.salvarUsuario();
                 this.paraOverlay();
